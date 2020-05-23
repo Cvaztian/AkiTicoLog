@@ -1,0 +1,2 @@
+# AkiTicoLog
+Sistema Experto Prolog
