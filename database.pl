@@ -37,6 +37,7 @@ afiliacion('Frankling Chang', nASA).
 afiliacion('Ivan Vargas', tEC).
 afiliacion('Clodomiro Picado', uCR ).
 afiliacion('Rana de Kolbi', iCE).
+afiliacion('Tren de Teletica', teletica).
 afiliacion('Gallo Gollo', gollo).
 
 
