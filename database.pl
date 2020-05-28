@@ -33,8 +33,8 @@ afiliacion('Joel Campbell', clubLeon).
 afiliacion('Frankling Chang', nASA).
 afiliacion('ivanVargas', tEC).
 afiliacion('Clodomiro Picado', uCR ).
-afiliacion('Rana de Kolbi', ICE).
-afiliación('Gallo Gollo', 'Gallo Gollo').
+afiliacion('Rana de Kolbi', iCE).
+afiliacion('Gallo Gollo', gollo).
 
 
 genero('Mauricio Hoffman', masculino).
@@ -58,13 +58,13 @@ extranjero('Frankling Chang').
 extranjero('Clodomiro Picado').
 extranjero('Claudia Poll').
 
-altura('Carlos Ramos', pequeño).
-altura('Keylor Navas', pequeño).
+altura('Carlos Ramos', pequenno).
+altura('Keylor Navas', pequenno).
 altura('Claudia Poll', alto).
 
 cabello('Mauricio Hoffman', corto).
 cabello('Carlos Ramos', corto).
-cabello('Victor Carvajal', Copete).
+cabello('Victor Carvajal', copete).
 
 contextura('Mauricio Hoffman', musculoso).
 contextura('Victor Carvajal', flaco).
@@ -81,7 +81,7 @@ lgbtiq+('Victor Carvajal').
 
 ojos('Mauricio Hoffman', claros).
 
-personalidad('Carlos Ramos', risueño).
+personalidad('Carlos Ramos', risuenno).
 
 caricatura('Rana de Kolbi').
 caricatura('Gallo Gollo').
@@ -96,3 +96,5 @@ color('Gallo Gollo', amarillo).
 color('Tren de Teletica', azul).
 
 clasificacion('Tren de Teletica', vehiculo).
+
+%%% Reglas
