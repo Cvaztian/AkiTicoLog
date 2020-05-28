@@ -1,98 +1,98 @@
 %%% Hechos
 
-persona(mauricioHoffman).
-persona(victorCarvajal).
-persona(carlosRamos).
+persona('Mauricio Hoffman').
+persona('Victor Carvajal').
+persona('Carlos Ramos').
 persona('Keylor Navas').
-persona(joelCampbell).
-persona(claudiaPoll).
-persona(franklinChang).
-persona(ivanVargas).
-persona(clodomiroPicado).
+persona('Joel Campbell').
+persona('Claudia Poll').
+persona('Frankling Chang').
+persona('ivanVargas').
+persona('Clodomiro Picado').
 
-ocupacion(mauricioHoffman, presentador).
-ocupacion(victorCarvajal, presentador).
-ocupacion(carlosRamos, humorista).
-ocupacion(keylorNavas, futbolista).
-ocupacion(joelCampbell, futbolista).
-ocupacion(claudiaPoll, nadador).
-ocupacion(franklinChang, fisico).
-ocupacion(ivanVargas, fisico).
-ocupacion(franklinChang, ingeniero).
-ocupacion(franklinChang, astronauta).
-ocupacion(franklinChang, cientifico).
-ocupacion(clodomiroPicado, cientifico).
-ocupacion(ivanVargas, cientifico).
+ocupacion('Mauricio Hoffman', presentador).
+ocupacion('Victor Carvajal', presentador).
+ocupacion('Carlos Ramos', humorista).
+ocupacion('Keylor Navas', futbolista).
+ocupacion('Joel Campbell', futbolista).
+ocupacion('Claudia Poll', nadador).
+ocupacion('Frankling Chang', fisico).
+ocupacion('ivanVargas', fisico).
+ocupacion('Frankling Chang', ingeniero).
+ocupacion('Frankling Chang', astronauta).
+ocupacion('Frankling Chang', cientifico).
+ocupacion('Clodomiro Picado', cientifico).
+ocupacion('ivanVargas', cientifico).
 
-afiliacion(mauricioHoffman, teletica).
-afiliacion(victorCarvajal, teletica).
-afiliacion(keylorNavas, realMadrid).
-afiliacion(keylorNavas, seleccionNacional).
-afiliacion(joelCampbell, seleccionNacional).
-afiliacion(joelCampbell, clubLeon).
-afiliacion(franklinChang, nASA).
-afiliacion(ivanVargas, tEC).
-afiliacion(clodomiroPicado, uCR ).
-afiliacion(kolbi, ICE).
-afiliación(gollo, Gollo).
+afiliacion('Mauricio Hoffman', teletica).
+afiliacion('Victor Carvajal', teletica).
+afiliacion('Keylor Navas', realMadrid).
+afiliacion('Keylor Navas', seleccionNacional).
+afiliacion('Joel Campbell', seleccionNacional).
+afiliacion('Joel Campbell', clubLeon).
+afiliacion('Frankling Chang', nASA).
+afiliacion('ivanVargas', tEC).
+afiliacion('Clodomiro Picado', uCR ).
+afiliacion('Rana de Kolbi', ICE).
+afiliación('Gallo Gollo', 'Gallo Gollo').
 
 
-genero(mauricioHoffman, masculino).
-genero(victorCarvajal, masculino).
-genero(carlosRamos, masculino).
-genero(keylorNavas, masculino).
-genero(joelCampbell, masculino).
-genero(ivanVargas, masculino).
-genero(clodomiroPicado, masculino).
-genero(franklinChang, masculino).
-genero(claudiaPoll, femenino).
+genero('Mauricio Hoffman', masculino).
+genero('Victor Carvajal', masculino).
+genero('Carlos Ramos', masculino).
+genero('Keylor Navas', masculino).
+genero('Joel Campbell', masculino).
+genero('ivanVargas', masculino).
+genero('Clodomiro Picado', masculino).
+genero('Frankling Chang', masculino).
+genero('Claudia Poll', femenino).
 
-reconocimientos(ivanVargas, ['Primer', descarga, de, plasma, en, latinoamerica]).
-reconocimientos(ivanVargas, ['Premio', nacional, de, ciencia, y, tecnologia]).
-reconocimientos(franklinChang, ['Desarrollo', de, motor, de, plasma]).
-reconocimientos(clodomiroPicado, ['Suero', antiofidico]).
-reconocimientos(clodomiroPicado, ['Benemerito', de, la, patria]).
-reconocimientos(clodomiroPicado, penicilina).
+reconocimientos('ivanVargas', ['Primer', descarga, de, plasma, en, latinoamerica]).
+reconocimientos('ivanVargas', ['Premio', nacional, de, ciencia, y, tecnologia]).
+reconocimientos('Frankling Chang', ['Desarrollo', de, motor, de, plasma]).
+reconocimientos('Clodomiro Picado', ['Suero', antiofidico]).
+reconocimientos('Clodomiro Picado', ['Benemerito', de, la, patria]).
+reconocimientos('Clodomiro Picado', penicilina).
 
-extranjero(franklinChang).
-extranjero(clodomiroPicado).
-extranjero(claudiaPoll).
+extranjero('Frankling Chang').
+extranjero('Clodomiro Picado').
+extranjero('Claudia Poll').
 
-altura(carlosRamos, pequeño).
-altura(keylornavas, pequeño).
-altura(claudiaPoll, alto).
+altura('Carlos Ramos', pequeño).
+altura('Keylor Navas', pequeño).
+altura('Claudia Poll', alto).
 
-cabello(mauricioHoffman, corto).
-cabello(carlosRamos, corto).
-cabello(victorCarvajal, Copete).
+cabello('Mauricio Hoffman', corto).
+cabello('Carlos Ramos', corto).
+cabello('Victor Carvajal', Copete).
 
-contextura(mauricioHoffman, musculoso).
-contextura(victorCarvajal, flaco).
-contextura(carlosRamos, grueso).
+contextura('Mauricio Hoffman', musculoso).
+contextura('Victor Carvajal', flaco).
+contextura('Carlos Ramos', grueso).
 
-tez(joelCampbell, afrodescendiente).
-tez(claudiaPoll, caucasica).
+tez('Joel Campbell', afrodescendiente).
+tez('Claudia Poll', caucasica).
 
-tatuajes(mauricioHoffman).
+tatuajes('Mauricio Hoffman').
 
-anteojos(mauricioHoffman).
+anteojos('Mauricio Hoffman').
 
-lgbtiq+(victorCarvajal).
+lgbtiq+('Victor Carvajal').
 
-ojos(mauricioHoffman, claros).
+ojos('Mauricio Hoffman', claros).
 
-personalidad(carlosRamos, risueño).
+personalidad('Carlos Ramos', risueño).
 
-caricatura(kolbi).
-caricatura(gollo).
+caricatura('Rana de Kolbi').
+caricatura('Gallo Gollo').
 caricatura('Tren de Teletica').
 
-clasificacion(kolbi, anfibio).
+clasificacion('Rana de Kolbi', anfibio).
 
-clasificacion(gollo,ave).
+clasificacion('Gallo Gollo',ave).
 
-color(kolbi, verde).
-color(gollo, amarillo).
+color('Rana de Kolbi', verde).
+color('Gallo Gollo', amarillo).
 color('Tren de Teletica', azul).
 
 clasificacion('Tren de Teletica', vehiculo).
