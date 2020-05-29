@@ -83,7 +83,7 @@ tatuajes('Mauricio Hoffman').
 
 anteojos('Mauricio Hoffman').
 
-lgbtiq+('Victor Carvajal').
+lgbtiq('Victor Carvajal').
 
 ojos('Mauricio Hoffman', claros).
 
@@ -106,6 +106,149 @@ color('Tren de Teletica', azul).
 validez('y').
 
 %%% Reglas
+
+play:-
+  question_animated;
+  question_cientifico;
+  question_presentador;
+  question_futbolista;
+  question_swimmer;
+  question_comediante;
+  deadend.
+
+deadend:-
+  write('No se puede adivinar su personaje').
+
+% comediante
+question_comediante:-
+  write('Es su personaje un comediante?'),
+  read(Respuesta),
+  validez(Respuesta),
+  comediante_positivo.
+
+comediante_positivo:-
+  persona(X),
+  ocupacion(X, humorista),
+  write(X).
+
+% nadador
+question_swimmer:-
+  write('Es su personaje nadador?'),
+  read(Respuesta),
+  validez(Respuesta),
+  swimmer_positivo.
+
+swimmer_positivo:-
+  persona(X),
+  ocupacion(X, nadador),
+  write(X).
+
+%% Futbolistas
+question_futbolista:-
+  write('Es su personaje futbolista?'),
+  read(Respuesta),
+  validez(Respuesta),
+  question_real.
+
+question_real:-
+  write('Jugó su personaje para el Real Madrid?'),
+  read(Respuesta),
+  validez(Respuesta),
+  positivo_real;
+  negativo_real.
+
+positivo_real:-
+  persona(X),
+  ocupacion(X, futbolista),
+  afiliacion(X, realMadrid),
+  write(X).
+
+negativo_real:-
+  persona(X),
+  ocupacion(X, futbolista),
+  not(afiliacion(X, realMadrid)),
+  write(X).
+
+%% Cientificos
+question_cientifico:-
+  write('Es su personaje un cientifico?'),
+  read(Respuesta),
+  validez(Respuesta),
+  question_universidad.
+
+question_universidad:-
+  write('Es su personaje perteneciente a una universidad publica?'),
+  read(Respuesta),
+  validez(Respuesta),
+  universidad_positivo;
+  universidad_negativo.
+
+universidad_positivo:-
+  write('Su personaje pertenece al TEC?'),
+  read(Respuesta),
+  validez(Respuesta),
+  tec_positivo;
+  tec_negativo.
+
+tec_positivo:-
+  persona(X),
+  ocupacion(X, cientifico),
+  afiliacion(X, tEC),
+  write(X).
+
+tec_negativo:-
+  persona(X),
+  ocupacion(X, cientifico),
+  afiliacion(X, uCR),
+  write(X).
+
+universidad_negativo:-
+  persona(X),
+  ocupacion(X, cientifico),
+  not(afiliacion(X, uCR)),
+  not(afiliacion(X, tEC)),
+  write(X).
+
+%% Presentadores
+question_presentador:-
+  write('Es su personaje un presentador?'),
+  read(Respuesta),
+  validez(Respuesta),
+  question_mujer.
+
+question_mujer:-
+  write('Es su personaje mujer?'),
+  read(Respuesta),
+  validez(Respuesta),
+  mujer_positivo;
+  question_lentes.
+
+mujer_positivo:-
+  persona(X),
+  ocupacion(X, presentador),
+  genero(X, femenino),
+  write(X).
+
+question_lentes:-
+  write('Su personaje usa lentes?'),
+  read(Respuesta),
+  validez(Respuesta),
+  lentes_positivo;
+  lentes_negativo.
+
+lentes_positivo:-
+  persona(X),
+  ocupacion(X, presentador),
+  genero(X, masculino),
+  anteojos(X),
+  write(X).
+
+lentes_negativo:-
+  persona(X),
+  ocupacion(X, presentador),
+  not(anteojos(X)),
+  write(X).
+
 question_animated:-
   write('Es su personaje animado?'),
   read(Respuesta),
