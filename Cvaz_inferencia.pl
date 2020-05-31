@@ -1,3 +1,13 @@
+oracion --> sujeto, verbo(G), predicado(G).
+
+sujeto --> [el].
+sujeto --> [ella].
+
+
+verbo(a) --> [es].
+verbo(b) --> [trabaja].
+verbo(c) --> [tiene].
+
 %Positivos
 positivo('Si').
 positivo('si').
@@ -30,7 +40,6 @@ answer:-
   %negativo(Resp), !, false;
   write(Resp), inputtolist(Resp, List), write(List).
 
-
 %_________________________________%
 %Input de usuario (string) a lista
 %*********************************%
@@ -40,15 +49,23 @@ inputtolist(Resp, L):- split_string(Resp, " ", "", L).
 %Lista sin palabras innecesarias
 %*******************************%
 purgar([], Result, Result).
-purgar([X|Y], Lista, Result):-not(omitir(X)), (add(Lista, X, NuevLista), write(NuevLista), purgar(Y, NuevLista, Result)); purgar(Y, Lista, Result).
+purgar([X|Y], Lista, Result):-not(omitir(X)), (add(Lista, X, NuevLista), purgar(Y, NuevLista, Result)); purgar(Y, Lista, Result).
 purgar(Lista, Result):- purgar(Lista, [], Result).
 
 %_______________________________%
 %Add list to list
 %*******************************%
-add([], Elem, [Elem]).
+add([], Elem, Elem).
 add(List, Elem, [List|Elem]).
-%append([X|Y], Z, [X|W]):- append(Y, Z, W).
 
+%_________________________________%
+%Determinar si existe negacion
+%*********************************%
+negacion([]):-false.
+negacion([X|Y]):- negativo(X), true; negacion(Y).
 
-%play:- purgar(X), prueba(X).
+%_________________________________%
+%Identificar si coinciden palabras
+%*********************************%
+coincide([], _):- false.
+coincide([X|Y], Palabra):- X==Palabra, true; coincide(Y, Palabra).
