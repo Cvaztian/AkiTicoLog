@@ -4,7 +4,6 @@
 %Distintas estructuras de respuestas posibles para analisis
 oracion --> afirmacion.                                             %Oracion binaria positiva
 oracion --> negacion.                                               %Oracion binaria negativa
-oracion --> articulo_determinado(A), sujeto(A), verbo(G), predicado(G).   %Oracion con la forma "El personaje es astronatua"
 oracion --> articulo_determinado, verbo(G), predicado(G).           %Oracion con la forma "El es astronatua"
 
 %Afirmaciones
@@ -14,11 +13,8 @@ afirmacion --> [si].
 negacion --> [no].
 
 %Determinantes
-articulo_determinado(a) --> [el].
+articulo_determinado --> [el].
 articulo_determinado --> [ella].
-
-%Sujetos
-sujeto(a) --> [personaje].
 
 %Verbo ser (tipo a)
 verbo(a) --> [es].
@@ -67,21 +63,26 @@ predicado(c) --> [anteojos].
 answer:-
   write("Por favor ingrese su respuesta"),nl,
   read(Resp),nl,
-  (positivo(Resp), true);
-  (negativo(Resp), !, false);
-  write(Resp), inputtolist(Resp, List), write(List).
+  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom),
+  oracion(Listatom, []).
 
-%_________________________________%
-%Input de usuario (string) a lista
-%*********************************%
+%____________________________________________%
+%Input de usuario (string) a lista de strings
+%********************************************%
 inputtolist(Resp, L):- split_string(Resp, " ", "", L).
+
+%__________________________________%
+%Lista de strings a lista de atomos
+%**********************************%
+atom_list([], []).
+atom_list([Hstr|Tstr], [Hatom|Tatom]):- atom_string(Hatom, Hstr), atom_list(Tstr, Tatom).
 
 %_______________________________%
 %Lista sin palabras innecesarias
 %*******************************%
-purgar([], Result, Result).
-purgar([X|Y], Lista, Result):-not(omitir(X)), (add(Lista, X, NuevLista), purgar(Y, NuevLista, Result)); purgar(Y, Lista, Result).
-purgar(Lista, Result):- purgar(Lista, [], Result).
+%purgar([], Result, Result).
+%purgar([X|Y], Lista, Result):-not(omitir(X)), (add(Lista, X, NuevLista), purgar(Y, NuevLista, Result)); purgar(Y, Lista, Result).
+%purgar(Lista, Result):- purgar(Lista, [], Result).
 
 %_______________________________%
 %Add list to list
@@ -92,11 +93,11 @@ add(List, Elem, [List|Elem]).
 %_________________________________%
 %Determinar si existe negacion
 %*********************************%
-negacion([]):-false.
-negacion([X|Y]):- negativo(X), true; negacion(Y).
+%negacion([]):-false.
+%negacion([X|Y]):- negativo(X), true; negacion(Y).
 
 %_________________________________%
 %Identificar si coinciden palabras
 %*********************************%
-coincide([], _):- false.
-coincide([X|Y], Palabra):- X==Palabra, true; coincide(Y, Palabra).
+%coincide([], _):- false.
+%coincide([X|Y], Palabra):- X==Palabra, true; coincide(Y, Palabra).
