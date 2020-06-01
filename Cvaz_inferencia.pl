@@ -1,34 +1,65 @@
-oracion --> sujeto, verbo(G), predicado(G).
+%______________________________________%
+%Estructura del Motor de Inferencia BNF
+%**************************************%
+%Distintas estructuras de respuestas posibles para analisis
+oracion --> afirmacion.                                             %Oracion binaria positiva
+oracion --> negacion.                                               %Oracion binaria negativa
+oracion --> articulo_determinado(A), sujeto(A), verbo(G), predicado(G).   %Oracion con la forma "El personaje es astronatua"
+oracion --> articulo_determinado, verbo(G), predicado(G).           %Oracion con la forma "El es astronatua"
 
-sujeto --> [el].
-sujeto --> [ella].
+%Afirmaciones
+afirmacion --> [si].
 
+%Negaciones
+negacion --> [no].
 
+%Determinantes
+articulo_determinado(a) --> [el].
+articulo_determinado --> [ella].
+
+%Sujetos
+sujeto(a) --> [personaje].
+
+%Verbo ser (tipo a)
 verbo(a) --> [es].
+%Verbo trabajar (tipo b)
 verbo(b) --> [trabaja].
+%Verbo tener (tipo c)
 verbo(c) --> [tiene].
 
-%Positivos
-positivo('Si').
-positivo('si').
+%Predicados para verbo ser (tipo a)
+predicado(a) --> [presentador].
+predicado(a) --> [humorista].
+predicado(a) --> [futbolista].
+predicado(a) --> [nadador].
+predicado(a) --> [fisico].
+predicado(a) --> [ingeniero].
+predicado(a) --> [astronauta].
+predicado(a) --> [cientifico].
 
-%Negativos
-negativo('No').
-negativo('no').
+predicado(a) --> [pequenno].
+predicado(a) --> [alto].
 
-%Omitibles
-omitir('el').
-omitir('la').
-omitir('lo').
-omitir('y').
-omitir('de').
-omitir('a').
-omitir('un').
-omitir('una').
-omitir('uno').
-omitir('en').
-omitir('para').
+predicado(a) --> [extranjero].
 
+predicado(a) --> [musculoso].
+predicado(a) --> [flaco].
+predicado(a) --> [grueso].
+predicado(a) --> [afrodescendiente].
+predicado(a) --> [cuacasica].
+
+predicado(a) --> [risueno].
+
+predicado(a) --> [caricatura].
+%Predicados para verbo trabajar (tipo b)
+predicado(b) --> [teletica].
+predicado(b) --> [nasa].
+predicado(b) --> [tec].
+predicado(b) --> [ucr].
+%Predicados para verbo tener (tipo c)
+predicado(c) --> [pelocorto].
+predicado(c) --> [tatuajes].
+predicado(c) --> [anteojos].
 
 %_________________________________%
 %Input de usuario binario u oracion
@@ -36,8 +67,8 @@ omitir('para').
 answer:-
   write("Por favor ingrese su respuesta"),nl,
   read(Resp),nl,
-  %positivo(Resp), true;
-  %negativo(Resp), !, false;
+  (positivo(Resp), true);
+  (negativo(Resp), !, false);
   write(Resp), inputtolist(Resp, List), write(List).
 
 %_________________________________%
