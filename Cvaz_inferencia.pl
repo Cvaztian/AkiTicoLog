@@ -47,9 +47,6 @@ predicado(a) --> [ingeniero].
 predicado(a) --> [astronauta].
 predicado(a) --> [cientifico].
 
-predicado(a) --> [pequeno].
-predicado(a) --> [alto].
-
 predicado(a) --> [extranjero].
 
 predicado(a) --> [musculoso].
@@ -57,19 +54,33 @@ predicado(a) --> [flaco].
 predicado(a) --> [grueso].
 predicado(a) --> [afrodescendiente].
 predicado(a) --> [cuacasica].
-
+predicado(a) --> [pequeno].
+predicado(a) --> [alto].
+predicado(a) --> [hombre].
+predicado(a) --> [mujer].
 predicado(a) --> [risueno].
+predicado(a) --> [amarillo].
+predicado(a) --> [azul].
+predicado(a) --> [verde].
 
+predicado(a) --> [real].
 predicado(a) --> [caricatura].
+
 %Predicados para verbo trabajar (tipo b)
 predicado(b) --> [teletica].
 predicado(b) --> [nasa].
 predicado(b) --> [tec].
 predicado(b) --> [ucr].
+predicado(b) --> [realMadrid].
+predicado(b) --> [seleccionNacional].
+predicado(b) --> [clubLeon].
+predicado(b) --> [ice].
+predicado(b) --> [gollo].
 %Predicados para verbo tener (tipo c)
 predicado(c) --> [pelocorto].
 predicado(c) --> [tatuajes].
 predicado(c) --> [anteojos].
+predicado(c) --> [lentes].
 
 %_________________________________%
 %Input de usuario binario u oracion
