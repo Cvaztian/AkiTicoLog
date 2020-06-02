@@ -2,19 +2,33 @@
 %Estructura del Motor de Inferencia BNF
 %**************************************%
 %Distintas estructuras de respuestas posibles para analisis
-oracion --> afirmacion.                                             %Oracion binaria positiva
-oracion --> negacion.                                               %Oracion binaria negativa
-oracion --> articulo_determinado, verbo(G), predicado(G).           %Oracion con la forma "El es astronatua"
+oracion --> afirmacion.                                               %Oracion binaria positiva
+oracion --> negacion.                                                 %Oracion binaria negativa
+oracion --> sintagma_nominal, sintagma_verbal.                        %Oracion completa
+sintagma_nominal --> pronombre.                                       %forma: "ella"
+sintagma_nominal --> negacion, pronombre.                             %forma: "no, ella"
+sintagma_verbal --> verbo(G), predicado(G).                           %forma: "es flaco"
+sintagma_verbal --> verbo(G), preposicion, predicado(G).              %forma: "trabaja en teletica"
+sintagma_verbal --> verbo(G), preposicion, articulo, predicado(G).    %forma "trabaja para la nasa"
 
 %Afirmaciones
 afirmacion --> [si].
 
 %Negaciones
 negacion --> [no].
+negacion_hecho(no).
 
-%Determinantes
-articulo_determinado --> [el].
-articulo_determinado --> [ella].
+%Pronombres
+pronombre --> [el].
+pronombre --> [ella].
+
+%Articulos
+articulo --> [la].
+articulo --> [el].
+
+%preposiciones
+preposicion --> [para].
+preposicion --> [en].
 
 %Verbo ser (tipo a)
 verbo(a) --> [es].
@@ -33,7 +47,7 @@ predicado(a) --> [ingeniero].
 predicado(a) --> [astronauta].
 predicado(a) --> [cientifico].
 
-predicado(a) --> [pequenno].
+predicado(a) --> [pequeno].
 predicado(a) --> [alto].
 
 predicado(a) --> [extranjero].
@@ -60,22 +74,40 @@ predicado(c) --> [anteojos].
 %_________________________________%
 %Input de usuario binario u oracion
 %*********************************%
-answer:-
+answer(Valor):-
   write("Por favor ingrese su respuesta"),nl,
   read(Resp),nl,
-  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom),
-  oracion(Listatom, []).
+  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom), oracion(Listatom, []), gener_vals(Listatom, Valor);
+  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer.
 
-%____________________________________________%
+%______________________________________________%
 %Input de usuario (string) a lista de strings
-%********************************************%
-inputtolist(Resp, L):- split_string(Resp, " ", "", L).
+%args: string de respuesta, lista de substrings
+%**********************************************%
+inputtolist(Resp, L):- split_string(Resp, " ", ",", L).
 
 %__________________________________%
 %Lista de strings a lista de atomos
+%args: lista strings, lista atomos
 %**********************************%
 atom_list([], []).
 atom_list([Hstr|Tstr], [Hatom|Tatom]):- atom_string(Hatom, Hstr), atom_list(Tstr, Tatom).
+
+%______________________________%
+%Determinar signo de la oracion
+%args: lista de atomos
+%******************************%
+negacion_regla([]):- fail.
+negacion_regla([Head|Tail]):-
+  negacion_hecho(Head), true;
+  negacion_regla(Tail).
+
+%______________________________________________%
+%Generar valores
+%args: oracion como lista de atomos
+%**********************************************%
+gener_vals([Ultimo], [Ultimo]).
+gener_vals([Head|Tail], Resp):- gener_vals(Tail, Resp).
 
 %_______________________________%
 %Lista sin palabras innecesarias
