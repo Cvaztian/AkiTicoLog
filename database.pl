@@ -1,3 +1,4 @@
+consult(cvaz_inferencia).
 %%% Hechos
 
 persona('Mauricio Hoffman').
@@ -154,14 +155,20 @@ valid(lentes, nao).
 
 %%% Reglas
 
+play:- orch([f,f,f,f,f,f]).
+
+q_anim([Real,Ocup,Afil,Gen,Col,Len]):-
+  valid(real, Real);
+  bNF(animacion, [Real, Ocup, Afil, Gen, Col, Len]).
+
 orch([Real,Ocup,Afil,Gen,Col,Len]):- % Funcion orquestadora
-  verificar_pj([Real,Ocup,Afil,Gen,Col,Len]),
-  q_anim([Real|Ocup|Afil|Gen|Col]);
-  q_ocup([Real|Ocup|Afil|Gen|Col]);
-  q_afil([Real|Ocup|Afil|Gen|Col]);
-  q_gen([Real|Ocup|Afil|Gen|Col]);
-  q_col([Real|Ocup|Afil|Gen|Col]);
-  valid_all([Real|Ocup|Afil|Gen|Col]).
+  verificar_pj([Real,Ocup,Afil,Gen,Col,Len]);
+  q_anim([Real,Ocup,Afil,Gen,Col,Len]).
+  %q_ocup([Real|Ocup|Afil|Gen|Col]);
+  %q_afil([Real|Ocup|Afil|Gen|Col]);
+  %q_gen([Real|Ocup|Afil|Gen|Col]);
+  %q_col([Real|Ocup|Afil|Gen|Col]);
+  %valid_all([Real|Ocup|Afil|Gen|Col])
 
 verificar_pj([Real,Ocup,Afil,Gen,Col,Len]):-
   Real==nao,valid(color,Col),valid(afiliacion, Afil);
@@ -171,19 +178,6 @@ verificar_pj([Real,Ocup,Afil,Gen,Col,Len]):-
   Ocup==nadador;
   Ocup==humorista.
 
-% Regla que agrega un Valor a la primera lista segun a que caracteristica pertenezca
-add_lista([Real, Ocup, Afil, Gen, Col, Len], Valor, [Real2, Ocup2, Afil2, Gen2, Col2, Len2]):-
-  Real==f,valid(real, Valor),Real2 = Valor, Ocup2=f, Afil2=f, Gen2=f, Col2=f, Len2=f.
-  Ocup==f, valid(ocupacion, Valor), Real2=Real, Ocup2=Valor, Afil2=f, Gen2=f, Col2=f, Len2=f.
-  Afil==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Valor, Gen2=f, Col2=f, Len2=f.
-  Gen==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Valor, Col2=f, Len2=f.
-  Col==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Valor, Len2=f.
-  Len==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Col, Len2=Valor.
-
-q_anim([Real,Ocup,Afil,Gen,Col,Len]):-
-  valid(real, Real);
-  BNF(animacion),
-  orch([Real,Ocup,Afil,Gen,Col,Len]).
 
 q_ocup([Real,Ocup,Afil,Gen,Col,Len]):-
   valid(ocupacion, Ocup);
@@ -222,184 +216,22 @@ q_lentes([Real,Ocup,Afil,Gen,Col,Len]):-
   not(Ocup==presentador);
   BNF(lentes), orch([Real,Ocup,Afil,Gen,Col,Len]).
 
+sacar([X],R):- R=X.
+sustituir(real, Valor, X):- Valor==real, X=si.
 
-
-
-play:-
-  question_animated;
-  question_cientifico;
-  question_presentador;
-  question_futbolista;
-  question_swimmer;
-  question_comediante;
-  deadend.
-
-deadend:-
-  write('No se puede adivinar su personaje').
-
-% comediante
-question_comediante:-
-  write('Es su personaje un comediante?'),
-  read(Respuesta),
-  validez(Respuesta),
-  comediante_positivo.
-
-comediante_positivo:-
-  persona(X),
-  ocupacion(X, humorista),
-  write(X).
-
-% nadador
-question_swimmer:-
-  write('Es su personaje nadador?'),
-  read(Respuesta),
-  validez(Respuesta),
-  swimmer_positivo.
-
-swimmer_positivo:-
-  persona(X),
-  ocupacion(X, nadador),
-  write(X).
-
-%% Futbolistas
-question_futbolista:-
-  write('Es su personaje futbolista?'),
-  read(Respuesta),
-  validez(Respuesta),
-  question_real.
-
-question_real:-
-  write('Jugó su personaje para el Real Madrid?'),
-  read(Respuesta),
-  validez(Respuesta),
-  positivo_real;
-  negativo_real.
-
-positivo_real:-
-  persona(X),
-  ocupacion(X, futbolista),
-  afiliacion(X, realMadrid),
-  write(X).
-
-negativo_real:-
-  persona(X),
-  ocupacion(X, futbolista),
-  not(afiliacion(X, realMadrid)),
-  write(X).
-
-%% Cientificos
-question_cientifico:-
-  write('Es su personaje un cientifico?'),
-  read(Respuesta),
-  validez(Respuesta),
-  question_universidad.
-
-question_universidad:-
-  write('Es su personaje perteneciente a una universidad publica?'),
-  read(Respuesta),
-  validez(Respuesta),
-  universidad_positivo;
-  universidad_negativo.
-
-universidad_positivo:-
-  write('Su personaje pertenece al TEC?'),
-  read(Respuesta),
-  validez(Respuesta),
-  tec_positivo;
-  tec_negativo.
-
-tec_positivo:-
-  persona(X),
-  ocupacion(X, cientifico),
-  afiliacion(X, tEC),
-  write(X).
-
-tec_negativo:-
-  persona(X),
-  ocupacion(X, cientifico),
-  afiliacion(X, uCR),
-  write(X).
-
-universidad_negativo:-
-  persona(X),
-  ocupacion(X, cientifico),
-  not(afiliacion(X, uCR)),
-  not(afiliacion(X, tEC)),
-  write(X).
-
-%% Presentadores
-question_presentador:-
-  write('Es su personaje un presentador?'),
-  read(Respuesta),
-  validez(Respuesta),
-  question_mujer.
-
-question_mujer:-
-  write('Es su personaje mujer?'),
-  read(Respuesta),
-  validez(Respuesta),
-  mujer_positivo;
-  question_lentes.
-
-mujer_positivo:-
-  persona(X),
-  ocupacion(X, presentador),
-  genero(X, femenino),
-  write(X).
-
-question_lentes:-
-  write('Su personaje usa lentes?'),
-  read(Respuesta),
-  validez(Respuesta),
-  lentes_positivo;
-  lentes_negativo.
-
-lentes_positivo:-
-  persona(X),
-  ocupacion(X, presentador),
-  genero(X, masculino),
-  anteojos(X),
-  write(X).
-
-lentes_negativo:-
-  persona(X),
-  ocupacion(X, presentador),
-  not(anteojos(X)),
-  write(X).
-
-question_animated:-
-  write('Es su personaje animado?'),
-  read(Respuesta),
-  validez(Respuesta),
-  inter_animated
-  .
-
-inter_animated:-
-  question_color;
-  question_teletica;
-  caricatura(X),
-  color(X,verde),
-  write(X).
-
-question_teletica:-
-  write('Su personaje pertenece a Teletica?'),
-  read(Respuesta),
-  validez(Respuesta),
-  inter_teletica.
-
-inter_teletica:-
-  caricatura(X),
-  afiliacion(X, teletica),
-  write(X).
-
-question_color:-
-  write('Su personaje es amarillo?'),
-  read(Respuesta),
-  validez(Respuesta),
-  inter_color
-  .
-
-inter_color:-
-  caricatura(X),
-  color(X, amarillo),
-  write(X).
+% Regla que agrega un Valor a la primera lista segun a que caracteristica pertenezca
+add_lista([Real, Ocup, Afil, Gen, Col, Len], Valor, [Real2, Ocup2, Afil2, Gen2, Col2, Len2]):-
+  Real==f,valid(real, Valor),Real2 = Valor, Ocup2=f, Afil2=f, Gen2=f, Col2=f, Len2=f.
+  Ocup==f, valid(ocupacion, Valor), Real2=Real, Ocup2=Valor, Afil2=f, Gen2=f, Col2=f, Len2=f.
+  Afil==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Valor, Gen2=f, Col2=f, Len2=f.
+  Gen==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Valor, Col2=f, Len2=f.
+  Col==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Valor, Len2=f.
+  Len==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Col, Len2=Valor.
+%BNF
+bNF(animacion, Lista):-
+  write('Es su personaje real?'), nl,
+  answer(X),
+  sacar(X, R),
+  sustituir(real, R, Valor),write(Valor),
+  add_lista(Lista, Valor, NuevaLista),
+  orch(NuevaLista).
