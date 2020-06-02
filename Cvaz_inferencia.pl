@@ -78,7 +78,7 @@ answer(Valor):-
   write("Por favor ingrese su respuesta"),nl,
   read(Resp),nl,
   inputtolist(Resp, Liststr), atom_list(Liststr, Listatom), oracion(Listatom, []), gener_vals(Listatom, Valor);
-  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer.
+  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor).
 
 %______________________________________________%
 %Input de usuario (string) a lista de strings
