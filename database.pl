@@ -171,6 +171,15 @@ verificar_pj([Real,Ocup,Afil,Gen,Col,Len]):-
   Ocup==nadador;
   Ocup==humorista.
 
+% Regla que agrega un Valor a la primera lista segun a que caracteristica pertenezca
+add_lista([Real, Ocup, Afil, Gen, Col, Len], Valor, [Real2, Ocup2, Afil2, Gen2, Col2, Len2]):-
+  Real==f,valid(real, Valor),Real2 = Valor, Ocup2=f, Afil2=f, Gen2=f, Col2=f, Len2=f.
+  Ocup==f, valid(ocupacion, Valor), Real2=Real, Ocup2=Valor, Afil2=f, Gen2=f, Col2=f, Len2=f.
+  Afil==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Valor, Gen2=f, Col2=f, Len2=f.
+  Gen==f, valid(afiliacion, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Valor, Col2=f, Len2=f.
+  Col==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Valor, Len2=f.
+  Len==f, valid(color, Valor), Real2=Real, Ocup2=Ocup, Afil2=Afil, Gen2=Gen, Col2=Col, Len2=Valor.
+
 q_anim([Real,Ocup,Afil,Gen,Col,Len]):-
   valid(real, Real);
   BNF(animacion),
