@@ -12,7 +12,7 @@ sintagma_verbal --> verbo(G), predicado(G).                           %forma: "e
 sintagma_verbal --> verbo(G), articulo_indef, predicado(G).        %forma: "es una caricatura"
 sintagma_verbal --> verbo(G), preposicion, predicado(G).              %forma: "trabaja en teletica"
 sintagma_verbal --> verbo(G), preposicion, articulo_def, predicado(G).%forma "trabaja para la nasa"
-%Antonimos (caso especial de oracion)                                 %Esta estructura permite determinar el valor contrario a lo que el usuario niega
+%Antonimos (caso especial de oracion)                                 %Esta estructura permite determinar el valor contrario a lo que el usuario niega. Ej: No hombre => mujer
 antonimo --> sintagma_nominal, sintagma_verbal_neg.                   %Oracion con una negacion
 sintagma_verbal_neg --> negacion, sintagma_verbal.                    %forma: "no es real"
 
@@ -114,16 +114,16 @@ contrario(lentes, nao).
 answer(Valor):-
   write("Por favor ingrese su respuesta"),nl,
   read(Resp),nl,
-  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom),
-  antonimo(Listatom, []), gener_vals_cons(Listatom, Valor);
-  oracion(Listatom, []), gener_vals(Listatom, Valor);
+  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom),   %formatea a atomos
+  antonimo(Listatom, []), gener_vals_cons(Listatom, Valor);   %Verifica si es una negacion
+  oracion(Listatom, []), gener_vals(Listatom, Valor);         %Verifica si es una oracion valida
   write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor).
 
 %______________________________________________%
 %Input de usuario (string) a lista de strings
 %args: string de respuesta, lista de substrings
 %**********************************************%
-inputtolist(Resp, L):- split_string(Resp, " ", ",", L).
+inputtolist(Resp, L):- split_string(Resp, " ", ",", L).   %split_string(String, separadores, caracteres relleno, lista substrings)
 
 %__________________________________%
 %Lista de strings a lista de atomos
@@ -132,16 +132,16 @@ inputtolist(Resp, L):- split_string(Resp, " ", ",", L).
 atom_list([], []).
 atom_list([Hstr|Tstr], [Hatom|Tatom]):- atom_string(Hatom, Hstr), atom_list(Tstr, Tatom).
 
-%______________________________________________%
+%____________________________________________________________________%
 %Generar valores
-%args: oracion como lista de atomos
-%**********************************************%
+%args: oracion como lista de atomos, resultado como lista de un atomo
+%********************************************************************%
 gener_vals([Ultimo], [Ultimo]).
 gener_vals([_|Tail], Resp):- gener_vals(Tail, Resp).
 
 %______________________________________________%
 %Generar valores contrarios
-%args: oracion como lista de atomos
+%args: oracion como lista de atomos, antonimo
 %**********************************************%
 gener_vals_cons([Ultimo], Anton):- contrario(Ultimo, Anton).
 gener_vals_cons([_|Tail], Resp):- gener_vals_cons(Tail, Resp).
