@@ -85,11 +85,32 @@ predicado(c) --> [lentes].
 %_________________________________%
 %Input de usuario binario u oracion
 %*********************************%
-answer(Valor):-
+answer(Valor, Tipo):-
   write("Por favor ingrese su respuesta"),nl,
-  read(Resp),nl,
-  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom), oracion(Listatom, []), gener_vals(Listatom, Valor);
-  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor).
+  read(Resp), nl,
+  (Resp=='si',
+    (Tipo==real, Valor=[real];
+     Tipo==afilanim, Valor=[teletica];
+     Tipo==afilfut, Valor=[realMadrid];
+     Tipo==afilcient, Valor=[p];
+     Tipo==afilcient2, Valor=[uCR];
+     Tipo==gen, Valor=[hombre];
+     Tipo==col, Valor=[amarillo];
+     Tipo==len, Valor=[si]
+     );
+   Resp=='no',
+   (Tipo==real, Valor=[caricatura];
+     Tipo==afilanim, Valor=[a];
+     Tipo==afilfut, Valor=[clubLeon];
+     Tipo==gen, Valor=[mujer];
+     Tipo==afilcient, Valor=[nASA];
+     Tipo==afilcient2, Valor=[tEC];
+     Tipo==col, Valor=[verde];
+     Tipo==len, Valor=[nao]
+     );
+  inputtolist(Resp, Liststr), atom_list(Liststr, Listatom), oracion(Listatom, []), gener_vals(Listatom, Valor)
+  );
+  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor, Tipo).
 
 %______________________________________________%
 %Input de usuario (string) a lista de strings
@@ -117,7 +138,10 @@ negacion_regla([Head|Tail]):-
 %Generar valores
 %args: oracion como lista de atomos
 %**********************************************%
-gener_vals([Ultimo], [Ultimo]).
+gener_vals([Ultimo], [Ultimo2]):-
+  Ultimo == , ;
+  Ultimo = Ultimo2.
+
 gener_vals([Head|Tail], Resp):- gener_vals(Tail, Resp).
 
 %_______________________________%
