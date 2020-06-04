@@ -15,7 +15,9 @@ personaje('Ivan Vargas', [real, cientifico, tEC, _, _,_]).
 personaje('Frankling Chang',[real, cientifico, nASA, _, _,_]).
 personaje('Pilar Cisneros',[real, presentador, _, mujer, _,_]).
 personaje('Claudia Poll',[real, nadador, _, _, _, _]).
-personaje('Carlos Ramos',[real, humorista, _, _, _, _]).
+personaje('Carlos Ramos',[real, humorista, _, hombre, _, _]).
+personaje('Natalia Monge',[real, humorista, _,mujer, _, _]).
+personaje('Sindy Chaves Noguera',[real, cientifico, _, mujer, _, _]).
 
 
 validez('y').
@@ -121,7 +123,7 @@ q_afil_futbol([Real,Ocup,Afil,Gen,Col,Len]):-
 
 q_gen([Real,Ocup,Afil,Gen,Col,Len]):-
   valid(genero, Gen);
-  not(Ocup==presentador);
+  not(Ocup==presentador; Ocup==humorista; Ocup==cientifico);
   write('Su personaje es hombre?'), nl,
   bNF([Real, Ocup, Afil, Gen, Col, Len], gen).
 
