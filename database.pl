@@ -1,5 +1,3 @@
-consult(cvaz_inferencia).
-
 personaje('Gallo gollo',[caricatura,_,gollo,_,amarillo,_]).
 personaje('Rana de Kolbi',[caricatura,_,kolbi,_,verde,_]).
 personaje('Gallo gollo',[caricatura,_,_,_,amarillo,_]).
@@ -61,7 +59,7 @@ valid(lentes, nao).
 
 %%% Reglas
 
-play:- orch([f,f,f,f,f,f]).
+play:- [inferencia], orch([f,f,f,f,f,f]).
 
 q_anim([Real,Ocup,Afil,Gen,Col,Len]):-
   valid(real, Real);
