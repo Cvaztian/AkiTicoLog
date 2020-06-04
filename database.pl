@@ -1,20 +1,21 @@
 consult(cvaz_inferencia).
 
-personaje('Gallo gollo',[caricatura,f,a,f,amarillo,f]).
-personaje('Rana de Kolbi',[caricatura,f,a,f,verde,f]).
-personaje('Gallo gollo',[caricatura,f,gollo,f,amarillo,f]).
-personaje('Rana de Kolbi',[caricatura,f,kolbi,f,verde,f]).
-personaje('Tren de Teletica',[caricatura,f,teletica,f,f,f]).
-personaje('Joel Campbell',[real,futbolista,clubLeon,f,f,f]).
-personaje('Keylor Navas',[real,futbolista,realMadrid,f,f,f]).
-personaje('Mauricio Hoffman',[real,presentador,f,hombre,f,si]).
-personaje('Victor Carvajal',[real, presentador, f, hombre, f,nao]).
-personaje('Clodomiro Picado',[real, cientifico, uCR, f, f,f]).
-personaje('Ivan Vargas', [real, cientifico, tEC, f, f,f]).
-personaje('Frankling Chang',[real, cientifico, nASA, f, f,f]).
-personaje('Pilar Cisneros',[real, presentador, f, mujer, f,nao]).
-personaje('Claudia Poll',[real, nadador, f, f, f, f]).
-personaje('Carlos Ramos',[real, humorista, f, f, f, f]).
+personaje('Gallo gollo',[caricatura,_,gollo,_,amarillo,_]).
+personaje('Rana de Kolbi',[caricatura,_,kolbi,_,verde,_]).
+personaje('Gallo gollo',[caricatura,_,_,_,amarillo,_]).
+personaje('Rana de Kolbi',[caricatura,_,_,_,verde,_]).
+personaje('Tren de Teletica',[caricatura,f,teletica,_,_,_]).
+personaje('Joel Campbell',[real,futbolista,_,_,negro,_]).
+personaje('Joel Campbell', [real, futbolista, clubLeon, _, _, _]).
+personaje('Keylor Navas',[real,futbolista,realMadrid,_,_,_]).
+personaje('Mauricio Hoffman',[real,presentador,_,hombre,_,si]).
+personaje('Victor Carvajal',[real, presentador, _, hombre, _,nao]).
+personaje('Clodomiro Picado',[real, cientifico, uCR, _, _,_]).
+personaje('Ivan Vargas', [real, cientifico, tEC, _, _,_]).
+personaje('Frankling Chang',[real, cientifico, nASA, _, _,_]).
+personaje('Pilar Cisneros',[real, presentador, _, mujer, _,_]).
+personaje('Claudia Poll',[real, nadador, _, _, _, _]).
+personaje('Carlos Ramos',[real, humorista, _, _, _, _]).
 
 
 validez('y').
@@ -123,6 +124,12 @@ q_gen([Real,Ocup,Afil,Gen,Col,Len]):-
   write('Su personaje es hombre?'), nl,
   bNF([Real, Ocup, Afil, Gen, Col, Len], gen).
 
+q_col_fut([Real, Ocup, Afil, Gen, Col, Len]):-
+  valid(color, Col);
+  not(Ocup==futbolista);
+  write('Su personaje es de color?'), nl,
+  bNF([Real, Ocup, Afil, Gen, Col, Len], col_fut).
+
 q_col([Real,Ocup,Afil,Gen,Col,Len]):-
   valid(color, Col);
   not(Real==caricatura);
@@ -135,7 +142,8 @@ q_lentes([Real,Ocup,Afil,Gen,Col,Len]):-
   write('Su personaje usa lentes?'), nl,
   bNF([Real, Ocup, Afil, Gen, Col, Len], len).
 
-sacar([X],R):- R=X.
+sacar([X],X).
+sacar(X,X).
 sustituir(real, Valor, X):- Valor==real, X=si.
 
 % Regla que agrega un Valor a la primera lista segun a que caracteristica pertenezca
