@@ -9,7 +9,7 @@ sintagma_nominal --> pronombre.                                       %forma: "e
 sintagma_nominal --> negacion, pronombre.                             %forma: "no, ella"
 sintagma_nominal --> adj_pos, sujeto.                                 %forma: "mi personaje"
 sintagma_verbal --> verbo(G), predicado(G).                           %forma: "es flaco"
-sintagma_verbal --> verbo(G), articulo_indef, predicado(G).        %forma: "es una caricatura"
+sintagma_verbal --> verbo(G), articulo_indef, predicado(G).           %forma: "es una caricatura"
 sintagma_verbal --> verbo(G), preposicion, predicado(G).              %forma: "trabaja en teletica"
 sintagma_verbal --> verbo(G), preposicion, articulo_def, predicado(G).%forma "trabaja para la nasa"
 %Antonimos (caso especial de oracion)                                 %Esta estructura permite determinar el valor contrario a lo que el usuario niega. Ej: No hombre => mujer
@@ -80,6 +80,7 @@ predicado(a) --> [risueno].
 predicado(a) --> [amarillo].
 predicado(a) --> [azul].
 predicado(a) --> [verde].
+predicado(a) --> [negro].
 
 predicado(a) --> [real].
 predicado(a) --> [caricatura].
@@ -94,6 +95,7 @@ predicado(b) --> [seleccionNacional].
 predicado(b) --> [clubLeon].
 predicado(b) --> [ice].
 predicado(b) --> [gollo].
+
 %Predicados para verbo tener (tipo c)
 predicado(c) --> [pelocorto].
 predicado(c) --> [tatuajes].
@@ -111,13 +113,35 @@ contrario(lentes, nao).
 %_________________________________%
 %Input de usuario binario u oracion
 %*********************************%
-answer(Valor):-
+answer(Valor, Tipo):-
   write("Por favor ingrese su respuesta"),nl,
-  read(Resp),nl,
+  read(Resp), nl,
+  (Resp=='si',
+    (Tipo==real, Valor=[real];
+     Tipo==afilanim, Valor=[teletica];
+     Tipo==afilfut, Valor=[realMadrid];
+     Tipo==afilcient, Valor=[p];
+     Tipo==afilcient2, Valor=[uCR];
+     Tipo==gen, Valor=[hombre];
+     Tipo==col, Valor=[amarillo];
+     Tipo==len, Valor=[si];
+     Tipo==col_fut, Valor=[negro]
+     );
+   Resp=='no',
+   (Tipo==real, Valor=[caricatura];
+     Tipo==afilanim, Valor=[a];
+     Tipo==gen, Valor=[mujer];
+     Tipo==afilcient, Valor=[nASA];
+     Tipo==afilcient2, Valor=[tEC];
+     Tipo==col, Valor=[verde];
+     Tipo==len, Valor=[nao];
+     Tipo==col_fut, Valor=[nao];
+     Tipo==afilfut, Valor=[clubLeon]
+     );
   inputtolist(Resp, Liststr), atom_list(Liststr, Listatom),   %formatea a atomos
-  antonimo(Listatom, []), gener_vals_cons(Listatom, Valor);   %Verifica si es una negacion
-  oracion(Listatom, []), gener_vals(Listatom, Valor);         %Verifica si es una oracion valida
-  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor).
+  (antonimo(Listatom, []), gener_vals_cons(Listatom, Valor);   %Verifica si es una negacion
+  oracion(Listatom, []), gener_vals(Listatom, Valor) ));       %Verifica si es una oracion valida
+  write("La estructura de su respuesta es incorrecta."), nl, write("Intente nuevamente"), nl, answer(Valor, Tipo).
 
 %______________________________________________%
 %Input de usuario (string) a lista de strings
