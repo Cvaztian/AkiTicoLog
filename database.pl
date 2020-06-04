@@ -24,6 +24,7 @@ validez('y').
 valid(color, amarillo).
 valid(color, azul).
 valid(color, verde).
+valid(color, negro).
 
 % Ocupaciones validas
 valid(ocupacion, presentador).
@@ -66,14 +67,14 @@ q_anim([Real,Ocup,Afil,Gen,Col,Len]):-
   bNF([Real, Ocup, Afil, Gen, Col, Len], real).
 
 orch([Real,Ocup,Afil,Gen,Col,Len]):- % Funcion orquestadora
-  verificar_pj([Real,Ocup,Afil,Gen,Col,Len]), personaje(X, [Real,Ocup,Afil,Gen,Col,Len]), write('Su personaje es: '), write(X), nl, abort;
+  personaje(X, [Real,Ocup,Afil,Gen,Col,Len]), write('Su personaje es: '), write(X), nl, abort;
   q_anim([Real,Ocup,Afil,Gen,Col,Len]),
   q_ocup([Real,Ocup,Afil,Gen,Col,Len]),
   q_afil([Real,Ocup,Afil,Gen,Col,Len]),
   q_gen([Real,Ocup,Afil,Gen,Col,Len]),
   q_col([Real,Ocup,Afil,Gen,Col,Len]),
   q_lentes([Real,Ocup,Afil,Gen,Col,Len]),
-  valid_all([Real,Ocup,Afil,Gen,Col,Len]).
+  verificar_pj([Real,Ocup,Afil,Gen,Col,Len]).
 
 valid_all([Real, Ocup, Afil, Gen, Col, Len]):-
   valid(real, Real), valid(ocupacion, Ocup), valid(afiliacion, Afil),
@@ -83,7 +84,7 @@ verificar_pj([Real,Ocup,Afil,Gen,Col,Len]):-
   Real==caricatura,(valid(color,Col);Afil==teletica),valid(afiliacion, Afil);
   Ocup==cientifico, valid(afiliacion, Afil);
   Ocup==presentador, valid(genero, Gen), valid(lentes, Lentes);
-  Ocup==futbolista, valid(afiliacion, Afil);
+  Ocup==futbolista, (valid(afiliacion, Afil); valid(color, Col));
   Ocup==nadador;
   Ocup==humorista.
 
